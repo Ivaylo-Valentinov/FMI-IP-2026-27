@@ -1,35 +1,46 @@
 #include <iostream>
 
-const unsigned int SIZE = 1028;
+const unsigned int SIZE = 1024;
 
 int main() {
-    int n, array[SIZE];
+    unsigned int n, m;
+    float arr[SIZE];
 
-    std::cin >> n;
-    if (n < 3 || n >= SIZE) {
+    std::cin >> n >> m;
+    if (n > SIZE) {
         std::cout << "Invalid n" << std::endl;
-        return -1;
+        return 1;
+    }
+    if (m > n) {
+        std::cout << "Invalid m" << std::endl;
+        return 1;
     }
 
-    for (int i = 0; i < n; i++) {
-        std::cin >> array[i];
+    for (unsigned int i = 0; i < n; i++) {
+        std::cin >> arr[i];
     }
 
-    //descending sort
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (array[j] < array[j + 1]) {
-                int temp = array[j];
-                array[j] = array[j + 1];
-                array[j + 1] = temp;
+    for (unsigned int i = 0; i < n; i++) {
+        unsigned int index = i;
+        for (unsigned int j = i + 1; j < n; j++) {
+            if (arr[index] > arr[j]) {
+                index = j;
             }
         }
+        float temp = arr[i];
+        arr[i] = arr[index];
+        arr[index] = temp;
     }
 
-    std::cout << "Largest 3 numbers in the array are: " <<
-        array[0] << " " <<
-        array[1] << " " <<
-        array[2] << std::endl;
+    float minSum = 0;
+    float maxSum = 0;
 
+    for (unsigned int i = 0; i < m; i++) {
+        minSum += arr[i];
+        maxSum += arr[n - m + i];
+    }
+
+    std::cout << minSum << std::endl;
+    std::cout << maxSum << std::endl;
     return 0;
 }

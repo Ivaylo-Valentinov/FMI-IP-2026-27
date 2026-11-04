@@ -1,10 +1,14 @@
 #include <iostream>
 
-const unsigned int SIZE = 128;
+const unsigned int SIZE = 1024;
 
 int main() {
     unsigned int n;
     std::cin >> n;
+    if (n > SIZE) {
+        std::cout << "Invalid n" << std::endl;
+        return 1;
+    }
 
     int arr[SIZE];
 

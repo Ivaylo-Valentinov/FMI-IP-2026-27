@@ -1,29 +1,38 @@
 #include <iostream>
 
-const unsigned int SIZE = 128;
+const unsigned int SIZE = 1024;
 
 int main() {
     int arr[SIZE];
 
     unsigned int n;
     std::cin >> n;
+    if (n == 0 || n > SIZE) {
+        std::cout << "Invalid n" << std::endl;
+        return 1;
+    }
+
     for (unsigned int i = 0; i < n; i++) {
         std::cin >> arr[i];
     }
 
-    for (int i = n - 1; i >= 0; i--) {
-        if (arr[i] < 0) {
-            for (int j = i; j < n - 1; j++) {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
+    unsigned int maxLen = 0;
+    int maxLenNum = arr[0];
+    unsigned int i = 0;
+
+    while (i < n) {
+        unsigned int j = i + 1, currLen = 1;
+        while (j < n && arr[j] == arr[i]) {
+            currLen++;
+            j++;
         }
+        if (currLen > maxLen) {
+            maxLen = currLen;
+            maxLenNum = arr[i];
+        }
+        i = j;
     }
 
-    for (unsigned int i = 0; i < n; i++) {
-        std::cout << arr[i] << std::endl;
-    }
-
+    std::cout << maxLenNum << " " << maxLen;
     return 0;
 }
