@@ -1,11 +1,13 @@
 #include <iostream>
-#include <cassert>
 
 int main()
 {
 	size_t n = 0, ans = 0;
 	std::cin >> n;
-	assert(n >= 2 && n <= 100);
+	if (n < 2 || n > 100) {
+		std::cout << "Invalid n" << std::endl;
+		return 1;
+	}
 
 	for (size_t i = 0; i < n; i++) {
 		unsigned long long current;
